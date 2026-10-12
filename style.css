@@ -1,0 +1,73 @@
+:root {
+  --bg: #0a0e1a; --panel: #111727; --card: #0c1220; --line: #243050;
+  --text: #dfe6ff; --muted: #8c97b8; --accent: #ffc94d; --ok: #5fd38d; --bad: #ff6b6b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0; height: 100dvh; display: flex; flex-direction: column;
+  background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, sans-serif;
+}
+header { display: flex; align-items: center; gap: 1.5rem; padding: .5rem 1rem; border-bottom: 1px solid var(--line); }
+h1 { font-size: 1.15rem; margin: 0; }
+nav { display: flex; gap: .4rem; }
+nav .on { background: var(--accent); color: #111; border-color: var(--accent); }
+
+main { flex: 1; display: flex; min-height: 0; }
+.stage { flex: 1; position: relative; min-width: 0; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
+aside { width: min(360px, 42vw); overflow: auto; padding: 1rem; background: var(--panel); border-left: 1px solid var(--line); }
+section, .stack { display: flex; flex-direction: column; gap: .7rem; }
+summary { cursor: pointer; color: var(--muted); }
+#q-settings > .row { margin-top: .6rem; }
+
+button, select, input {
+  font: inherit; color: inherit; background: #1b2340;
+  border: 1px solid var(--line); border-radius: 6px; padding: .35rem .7rem;
+}
+button { cursor: pointer; touch-action: manipulation; }
+button:hover { border-color: var(--accent); }
+.primary { background: var(--accent); color: #111; border-color: var(--accent); }
+.link { background: none; border: 0; color: var(--muted); text-decoration: underline; align-self: flex-start; padding: 0; }
+input[type=range] { width: 100%; padding: 0; accent-color: var(--accent); }
+input[type=checkbox] { accent-color: var(--accent); }
+
+p { margin: 0; }
+.row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem; }
+.big { font-size: 1.1rem; font-weight: 600; }
+.hint { color: var(--muted); font-size: .85rem; }
+.accent { color: var(--accent); }
+.ok { color: var(--ok); }
+.bad { color: var(--bad); }
+
+#q-choices { display: grid; gap: .4rem; }
+#q-choices button { text-align: left; }
+#q-form { display: flex; gap: .4rem; }
+#q-input { flex: 1; min-width: 0; }
+
+#at-list h3 { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: .8rem 0 .3rem; }
+#at-list button { margin: 0 .25rem .3rem 0; padding: .15rem .5rem; font-size: .85rem; }
+#at-list button::before { content: '●'; margin-right: .3rem; color: #3a4466; }
+#at-list .sel { border-color: var(--accent); }
+.m1, #at-list .m1::before { color: var(--bad); }
+.m2, #at-list .m2::before { color: var(--accent); }
+.m3, #at-list .m3::before { color: var(--ok); }
+#at-list .m1, #at-list .m2, #at-list .m3 { color: inherit; }
+
+/* Telefon na výšku: mapa nahoře, panel pod ní, otázka testu hned pod mapou. */
+@media (max-width: 760px) {
+  body { height: auto; min-height: 100dvh; }
+  header { gap: .6rem; padding: .4rem .6rem; position: sticky; top: 0; z-index: 1; background: var(--bg); }
+  h1 { display: none; }
+  nav { flex: 1; }
+  nav button { flex: 1; padding: .45rem .3rem; font-size: .9rem; }
+  main { flex-direction: column; }
+  .stage { flex: none; height: min(118vw, 62dvh); }
+  aside { width: auto; overflow: visible; border-left: 0; border-top: 1px solid var(--line); padding: .8rem; }
+  #q-card { order: -1; }
+  #q-choices { grid-template-columns: 1fr 1fr; }
+  #q-choices button, .row button { padding: .6rem .7rem; }
+}

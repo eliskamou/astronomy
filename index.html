@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0e1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Souhvězdí</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+<header>
+  <h1>✦ Souhvězdí</h1>
+  <nav id="tabs">
+    <button data-mode="atlas">Výuka</button>
+    <button data-mode="planet">Obloha v čase</button>
+    <button data-mode="quiz">Test</button>
+  </nav>
+</header>
+<main>
+  <div class="stage"><canvas id="sky"></canvas></div>
+  <aside>
+    <section id="atlas">
+      <div class="row">
+        <select id="at-lang" aria-label="Popisky">
+          <option value="cz">názvy česky</option><option value="la">latinsky</option>
+          <option value="both">obojí</option><option value="">bez názvů</option>
+        </select>
+        <label><input type="checkbox" id="at-bounds" checked> hranice</label>
+      </div>
+      <div id="at-info" class="card"></div>
+      <p class="hint">Táhni pro posun, kolečkem nebo dvěma prsty zoom, klepnutím vybereš souhvězdí.</p>
+      <div id="at-list"></div>
+      <p class="hint legend"><span class="m1">●</span> učím se <span class="m2">●</span> opakuji <span class="m3">●</span> zvládnuto</p>
+    </section>
+
+    <section id="planet" hidden>
+      <p id="pl-when" class="big"></p>
+      <label>Den v roce <input type="range" id="pl-doy" min="0" max="364" step="1"></label>
+      <label>Čas <input type="range" id="pl-min" min="0" max="1439" step="5"></label>
+      <div class="row">
+        <button id="pl-now">Teď</button><button id="pl-day">▶ den</button><button id="pl-year">▶ rok</button>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="pl-lines" checked> obrazce</label>
+        <select id="pl-lang" aria-label="Popisky">
+          <option value="cz">názvy česky</option><option value="la">latinsky</option>
+          <option value="both">obojí</option><option value="">bez názvů</option>
+        </select>
+      </div>
+      <p id="pl-hit" class="big accent"></p>
+      <p class="hint">Celá obloha nad Prahou: střed je zenit, kruh obzor. Sever nahoře a východ vlevo,
+        jako když mapu držíš nad hlavou. „▶ rok“ ukazuje stejnou hodinu den po dni, takže uvidíš, jak se během roku střídají souhvězdí.</p>
+    </section>
+
+    <section id="quiz" hidden>
+      <details id="q-settings">
+        <summary>Nastavení testu</summary>
+        <div class="row">
+          <select id="q-level" aria-label="Úroveň">
+            <option value="0">1 · Obrazec (jen hlavní hvězdy)</option>
+            <option value="1">2 · Mapa (obrazce a hranice)</option>
+            <option value="2">3 · Obloha z ČR (bez čar)</option>
+          </select>
+        </div>
+        <div class="row">
+          <select id="q-lang" aria-label="Jazyk">
+            <option value="cz">česky</option><option value="la">latinsky</option><option value="mix">střídavě</option>
+          </select>
+          <select id="q-mode" aria-label="Způsob odpovědi">
+            <option value="choices">výběr ze 4</option><option value="type">psaní názvu</option>
+          </select>
+        </div>
+        <div id="q-groups" class="row"></div>
+      </details>
+      <p id="q-stats" class="hint"></p>
+      <div id="q-card" class="card stack">
+        <p id="q-text" class="big"></p>
+        <p id="q-scene" class="hint"></p>
+        <div id="q-choices"></div>
+        <form id="q-form"><input id="q-input" autocomplete="off" spellcheck="false" placeholder="Napiš název…"><button>OK</button></form>
+        <p id="q-feedback"></p>
+        <div class="row"><button id="q-skip">Nevím</button><button id="q-next" class="primary"></button></div>
+      </div>
+      <p class="hint">Opakování je rozložené v čase: co umíš rychle, uvidíš za delší dobu, chyby se vrací hned.
+        Psaní názvu (aktivní vybavení) si zapamatuješ lépe než výběr z možností. Diakritiku psát nemusíš.</p>
+      <button id="q-reset" class="link">Smazat pokrok</button>
+    </section>
+  </aside>
+</main>
+</body>
+</html>
